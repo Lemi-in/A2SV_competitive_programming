@@ -1,7 +1,17 @@
+
 class Solution:
-    def commonChars(self, words: List[str]) -> List[str]:
-        n = len(words)
-        common = Counter(words[0])
-        for i in range(1,n):
-            common &= Counter(words[i])
-        return list(common.elements())
+    def commonChars(self, A: List[str]) -> List[str]:
+        count = {}
+        
+        for char in A[0]:
+            count[char] = count.get(char, 0) + 1
+        
+        for char in count:
+            for string in A[1:]:
+                count[char] = min(count[char], string.count(char))
+        
+        result = []
+        for char, freq in count.items():
+            result.extend([char] * freq)
+        
+        return result
