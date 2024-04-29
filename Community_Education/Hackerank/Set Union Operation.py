@@ -18,5 +18,8 @@ if __name__ == '__main__':
     for num in french:
         if num not in english:
             count3 += 1
-            
     print( count + count2 + count3)
+    
+    # we can easily do it like this 
+    # print(len(english.union(french)))
+    # but I like doing it manually
