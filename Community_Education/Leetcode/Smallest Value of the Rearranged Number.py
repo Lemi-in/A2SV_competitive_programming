@@ -2,22 +2,16 @@ class Solution(object):
     def smallestNumber(self, num):
         if num == 0:
             return 0
-        n = str(num)
-        s = list(n)  
-        i = 0
-        if num > 0:
-            s = sorted([int(i) for i in s if i.isdigit()])
-            for i in range(len(s)):
-                if s[i] > 0 and s[0] == 0:
-                    s[i], s[0] = s[0] , s[i]
-                    break
-            s = [str(i) for i in s]
-            s = ''.join(s)
-            s = int(s)
-        elif num < 0:
-            s = sorted([int(i) for i in s if i.isdigit()] , reverse=True)
-            s = [str(i) for i in s]
-            s = ''.join(s)
-            s = int(s)
-            s = -1 * s
-        return s
+        
+        isNegative = num < 0
+        digits = sorted([char for char in str(abs(num))])
+        
+        if isNegative:
+            return -int(''.join(digits[::-1]))
+        else:
+            if digits[0] == '0':
+                for i in range(1, len(digits)):
+                    if digits[i] != '0':
+                        digits[0], digits[i] = digits[i], '0'
+                        break
+            return int(''.join(digits))
