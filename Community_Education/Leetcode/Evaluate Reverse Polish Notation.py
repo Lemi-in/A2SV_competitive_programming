@@ -1,17 +1,20 @@
-class Solution(object):
+class Solution:
     def evalRPN(self, tokens):
         stack = []
-        for char in tokens:
+        for i in range(len(tokens)):
+            char = tokens[i]
             if char == "+":
-                stack.append(stack.pop() + stack.pop())
+                stack[-2] += stack[-1]
+                stack.pop()
             elif char == "-":
-                left, right = stack.pop() , stack.pop()
-                stack.append(right - left)
+                stack[-2] -= stack[-1]
+                stack.pop()
             elif char == "*":
-                stack.append(stack.pop() * stack.pop())
+                stack[-2] *= stack[-1]
+                stack.pop()
             elif char == "/":
-                left, right = (stack.pop() , stack.pop())
-                stack.append(int(float(right)/ left))
+                stack[-2] = int(float(stack[-2]) / stack[-1])
+                stack.pop()
             else:
                 stack.append(int(char))
         return stack[0]
